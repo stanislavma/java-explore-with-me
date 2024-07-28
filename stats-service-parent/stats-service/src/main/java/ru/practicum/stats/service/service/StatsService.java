@@ -1,13 +1,13 @@
 package ru.practicum.stats.service.service;
 
-import ru.practicum.dto.StatsDto;
+import ru.practicum.stats.service.model.EndpointHit;
 
 import java.util.List;
 
 public interface StatsService {
 
-    void save(StatsDto statsDto);
+    void save(EndpointHit endpointHit);
 
-    List<StatsDto> getStats(String start, String end, List<String> uris, Boolean unique);
+    List<EndpointHit> getStats(String start, String end, List<String> uris, Boolean unique);
 
 }

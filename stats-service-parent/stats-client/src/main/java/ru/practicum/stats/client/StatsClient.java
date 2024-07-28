@@ -5,7 +5,7 @@ import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.DefaultUriBuilderFactory;
-import ru.practicum.dto.StatsDto;
+import ru.practicum.dto.EndpointHitDto;
 
 import java.util.List;
 
@@ -22,8 +22,8 @@ public class StatsClient extends BaseClient {
         );
     }
 
-    public ResponseEntity<Object> saveStats(StatsDto statsDto) {
-        return post("/hit", statsDto);
+    public ResponseEntity<Object> saveStats(EndpointHitDto EndpointHitDto) {
+        return post("/hit", EndpointHitDto);
     }
 
     public ResponseEntity<Object> getStats(String start, String end, List<String> uris, Boolean unique) {

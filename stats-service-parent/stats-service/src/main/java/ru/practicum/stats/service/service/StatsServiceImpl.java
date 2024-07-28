@@ -1,12 +1,13 @@
-package ru.practicum.stats.service;
+package ru.practicum.stats.service.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.practicum.stats.service.model.Stats;
 import ru.practicum.stats.service.StatsRepository;
-import ru.practicum.stats.service.service.StatsService;
+import ru.practicum.stats.service.common.DateTimeConverter;
+import ru.practicum.stats.service.model.EndpointHit;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Service
@@ -15,12 +16,22 @@ public class StatsServiceImpl implements StatsService {
 
     private final StatsRepository statsRepository;
 
-    public void saveStats(Stats stats) {
-        statsRepository.save(stats);
+    @Override
+    public void save(EndpointHit endpointHit) {
+        statsRepository.save(endpointHit);
     }
 
-    public List<Stats> getStats(LocalDateTime start, LocalDateTime end, List<String> uris, Boolean unique) {
-        return statsRepository.findStats(start, end, uris, unique);
+    @Override
+    public List<EndpointHit> getStats(String start, String end, List<String> uris, Boolean unique) {
+        LocalDateTime startTime = DateTimeConverter.parseDateTime(start);
+        LocalDateTime endTime = DateTimeConverter.parseDateTime(end);
+
+        if (unique) {
+            return statsRepository.findUniqueStats(startTime, endTime, uris);
+        } else {
+            return statsRepository.findStats(startTime, endTime, uris);
+        }
+
     }
 
 }

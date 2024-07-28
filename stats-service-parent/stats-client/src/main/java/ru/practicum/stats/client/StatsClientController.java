@@ -3,7 +3,7 @@ package ru.practicum.stats.client;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.practicum.dto.StatsDto;
+import ru.practicum.dto.EndpointHitDto;
 import ru.practicum.stats.client.StatsClient;
 
 import java.util.List;
@@ -16,8 +16,8 @@ public class StatsClientController {
     private final StatsClient statsClient;
 
     @PostMapping("/hit")
-    public ResponseEntity<Void> saveStats(@RequestBody StatsDto statsDto) {
-        statsClient.saveStats(statsDto);
+    public ResponseEntity<Void> saveStats(@RequestBody EndpointHitDto EndpointHitDto) {
+        statsClient.saveStats(EndpointHitDto);
         return ResponseEntity.ok().build();
     }
 
