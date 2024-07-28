@@ -29,8 +29,8 @@ public class StatsController {
     @GetMapping
     public ResponseEntity<List<ViewStatsDto>> getStats(@RequestParam String start,
                                                        @RequestParam String end,
-                                                       @RequestParam List<String> uris,
-                                                       @RequestParam Boolean unique) {
+                                                       @RequestParam(required = false) List<String> uris,
+                                                       @RequestParam(defaultValue = "false") Boolean unique) {
 
         List<EndpointHit> endpointHits = statsService.getStats(start, end, uris, unique);
 
@@ -41,5 +41,4 @@ public class StatsController {
 
         return ResponseEntity.ok(viewStatsDtoList);
     }
-
 }

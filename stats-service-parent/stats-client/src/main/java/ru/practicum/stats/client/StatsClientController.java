@@ -23,8 +23,8 @@ public class StatsClientController {
     @GetMapping()
     public ResponseEntity<Object> getStats(@RequestParam String start,
                                            @RequestParam String end,
-                                           @RequestParam List<String> uris,
-                                           @RequestParam Boolean unique) {
+                                           @RequestParam(required = false) List<String> uris,
+                                           @RequestParam(defaultValue = "false") Boolean unique) {
         return statsClient.getStats(start, end, uris, unique);
     }
 

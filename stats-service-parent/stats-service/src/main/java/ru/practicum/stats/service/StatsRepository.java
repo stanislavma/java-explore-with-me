@@ -11,6 +11,16 @@ import java.util.List;
 @Repository
 public interface StatsRepository extends JpaRepository<EndpointHit, Long> {
 
+    @Query("SELECT new ru.practicum.stats.service.model.EndpointHit(s.app, s.uri, COUNT(s)) " +
+            "FROM EndpointHit s WHERE s.hitDate BETWEEN :start AND :end " +
+            "GROUP BY s.app, s.uri")
+    List<EndpointHit> findStatsWithoutUris(LocalDateTime start, LocalDateTime end);
+
+    @Query("SELECT new ru.practicum.stats.service.model.EndpointHit(s.app, s.uri, COUNT(DISTINCT s.ip)) " +
+            "FROM EndpointHit s WHERE s.hitDate BETWEEN :start AND :end " +
+            "GROUP BY s.app, s.uri")
+    List<EndpointHit> findUniqueStatsWithoutUris(LocalDateTime start, LocalDateTime end);
+
     @Query("SELECT new ru.practicum.stats.service.model.EndpointHit(s.app, s.uri, COUNT(s.id)) " +
             "FROM EndpointHit s WHERE s.hitDate BETWEEN :start AND :end " +
             "AND s.uri IN :uris GROUP BY s.app, s.uri")

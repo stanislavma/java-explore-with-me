@@ -25,12 +25,20 @@ public class StatsServiceImpl implements StatsService {
     public List<EndpointHit> getStats(String start, String end, List<String> uriList, Boolean unique) {
         LocalDateTime startTime = DateTimeConverter.parseDateTime(start);
         LocalDateTime endTime = DateTimeConverter.parseDateTime(end);
-        List<String> uriListCleaned = cleanList(uriList);
 
-        if (unique) {
-            return statsRepository.findUniqueStats(startTime, endTime, uriListCleaned);
+        if (uriList == null || uriList.isEmpty()) {
+            if (unique) {
+                return statsRepository.findUniqueStatsWithoutUris(startTime, endTime);
+            } else {
+                return statsRepository.findStatsWithoutUris(startTime, endTime);
+            }
         } else {
-            return statsRepository.findStats(startTime, endTime, uriListCleaned);
+            List<String> uriListCleaned = cleanList(uriList);
+            if (unique) {
+                return statsRepository.findUniqueStats(startTime, endTime, uriListCleaned);
+            } else {
+                return statsRepository.findStats(startTime, endTime, uriListCleaned);
+            }
         }
 
     }
