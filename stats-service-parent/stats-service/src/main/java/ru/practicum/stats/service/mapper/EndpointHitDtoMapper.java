@@ -6,8 +6,6 @@ import ru.practicum.stats.service.model.EndpointHit;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class EndpointHitDtoMapper {
 
@@ -42,12 +40,6 @@ public class EndpointHitDtoMapper {
 
     public static ViewStatsDto toViewStatsDto(String app, String uri, Long hits) {
         return new ViewStatsDto(app, uri, hits);
-    }
-
-    public static List<ViewStatsDto> toViewStatsDtoList(List<EndpointHit> results) {
-        return results.stream()
-                .map(ViewStatsDtoMapper::toDto)
-                .collect(Collectors.toList());
     }
 
 }

@@ -10,6 +10,7 @@ import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
+import java.util.Map;
 
 public class BaseClient {
 
@@ -19,29 +20,29 @@ public class BaseClient {
         this.rest = rest;
     }
 
-    protected ResponseEntity<Object> get(String path, String start, String end, List<String> uris, Boolean unique) {
-        return makeAndSendRequest(HttpMethod.GET, path, start, end, uris, unique, null);
+    protected ResponseEntity<Object> get(String path, @Nullable Map<String, Object> parameters) {
+        return makeAndSendRequest(HttpMethod.GET, path, parameters, null);
     }
 
     protected <T> ResponseEntity<Object> post(String path, T body) {
-        return makeAndSendRequest(HttpMethod.POST, path, null, null, null, null, body);
+        return makeAndSendRequest(HttpMethod.POST, path,  null, body);
     }
 
-    private <T> ResponseEntity<Object> makeAndSendRequest(HttpMethod method, String path, String start, String end, List<String> uris, Boolean unique, @Nullable T body) {
+    private <T> ResponseEntity<Object> makeAndSendRequest(HttpMethod method, String path,
+                                                          @Nullable Map<String, Object> parameters, @Nullable T body) {
         HttpEntity<T> requestEntity = new HttpEntity<>(body, defaultHeaders());
 
-        ResponseEntity<Object> response;
+        ResponseEntity<Object> shareitServerResponse;
         try {
-            if (start != null && end != null && uris != null && unique != null) {
-                response = rest.exchange(path, method, requestEntity, Object.class, start, end, uris, unique);
+            if (parameters != null) {
+                shareitServerResponse = rest.exchange(path, method, requestEntity, Object.class, parameters);
             } else {
-                response = rest.exchange(path, method, requestEntity, Object.class);
+                shareitServerResponse = rest.exchange(path, method, requestEntity, Object.class);
             }
         } catch (HttpStatusCodeException e) {
             return ResponseEntity.status(e.getStatusCode()).body(e.getResponseBodyAsByteArray());
         }
-
-        return prepareGatewayResponse(response);
+        return prepareGatewayResponse(shareitServerResponse);
     }
 
     private HttpHeaders defaultHeaders() {

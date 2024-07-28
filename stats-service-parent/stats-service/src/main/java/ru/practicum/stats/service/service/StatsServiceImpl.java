@@ -7,8 +7,8 @@ import ru.practicum.stats.service.common.DateTimeConverter;
 import ru.practicum.stats.service.model.EndpointHit;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -22,16 +22,24 @@ public class StatsServiceImpl implements StatsService {
     }
 
     @Override
-    public List<EndpointHit> getStats(String start, String end, List<String> uris, Boolean unique) {
+    public List<EndpointHit> getStats(String start, String end, List<String> uriList, Boolean unique) {
         LocalDateTime startTime = DateTimeConverter.parseDateTime(start);
         LocalDateTime endTime = DateTimeConverter.parseDateTime(end);
+        List<String> uriListCleaned = cleanList(uriList);
 
         if (unique) {
-            return statsRepository.findUniqueStats(startTime, endTime, uris);
+            return statsRepository.findUniqueStats(startTime, endTime, uriListCleaned);
         } else {
-            return statsRepository.findStats(startTime, endTime, uris);
+            return statsRepository.findStats(startTime, endTime, uriListCleaned);
         }
 
+    }
+
+    public static List<String> cleanList(List<String> uriList) {
+
+        return uriList.stream()
+                .map(s -> s.replace("[", "").replace("]", "").trim())
+                .collect(Collectors.toList());
     }
 
 }

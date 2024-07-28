@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.dto.EndpointHitDto;
-import ru.practicum.stats.client.StatsClient;
 
 import java.util.List;
 
@@ -21,7 +20,7 @@ public class StatsClientController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/stats")
+    @GetMapping()
     public ResponseEntity<Object> getStats(@RequestParam String start,
                                            @RequestParam String end,
                                            @RequestParam List<String> uris,

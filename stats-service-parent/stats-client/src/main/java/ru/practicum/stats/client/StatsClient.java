@@ -8,6 +8,7 @@ import org.springframework.web.util.DefaultUriBuilderFactory;
 import ru.practicum.dto.EndpointHitDto;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class StatsClient extends BaseClient {
@@ -27,7 +28,14 @@ public class StatsClient extends BaseClient {
     }
 
     public ResponseEntity<Object> getStats(String start, String end, List<String> uris, Boolean unique) {
-        return get("/stats", start, end, uris, unique);
+        Map<String, Object> parameters = Map.of(
+                "start", start,
+                "end", end,
+                "uris", uris,
+                "unique", unique
+        );
+
+        return get("?start={start}&end={end}&uris={uris}&unique={unique}", parameters);
     }
 
 }

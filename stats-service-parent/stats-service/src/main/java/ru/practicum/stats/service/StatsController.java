@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.*;
 import ru.practicum.dto.EndpointHitDto;
 import ru.practicum.dto.ViewStatsDto;
 import ru.practicum.stats.service.mapper.EndpointHitDtoMapper;
-import ru.practicum.stats.service.mapper.ViewStatsDtoMapper;
 import ru.practicum.stats.service.model.EndpointHit;
 import ru.practicum.stats.service.service.StatsService;
 
