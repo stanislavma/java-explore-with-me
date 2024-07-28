@@ -6,7 +6,7 @@
 
     <artifactId>stats-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <groupId>ru.practicum.endpointHit</groupId>
+    <groupId>ru.practicum.stats</groupId>
 
     <parent>
         <groupId>ru.practicum</groupId>
@@ -86,7 +86,7 @@
                 <configuration>
                     <environmentVariables>
                         <SERVER_PORT>9090</SERVER_PORT>
-                        <POSTGRES_DB>endpointHit</POSTGRES_DB>
+                        <POSTGRES_DB>stats</POSTGRES_DB>
                         <POSTGRES_USER>postgres</POSTGRES_USER>
                         <POSTGRES_PASSWORD>postgres</POSTGRES_PASSWORD>
                         <POSTGRES_HOST>localhost</POSTGRES_HOST>

@@ -6,7 +6,7 @@
 
     <artifactId>stats-client</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <groupId>ru.practicum.endpointHit</groupId>
+    <groupId>ru.practicum.stats</groupId>
 
     <parent>
         <groupId>ru.practicum</groupId>
