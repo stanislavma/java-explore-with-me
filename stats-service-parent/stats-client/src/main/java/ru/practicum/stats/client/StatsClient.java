@@ -23,8 +23,8 @@ public class StatsClient extends BaseClient {
         );
     }
 
-    public ResponseEntity<Object> saveStats(EndpointHitDto EndpointHitDto) {
-        return post("/hit", EndpointHitDto);
+    public ResponseEntity<Object> saveStats(EndpointHitDto endpointHitDto) {
+        return post("/hit", endpointHitDto);
     }
 
     public ResponseEntity<Object> getStats(String start, String end, List<String> uris, Boolean unique) {

@@ -15,8 +15,8 @@ public class StatsClientController {
     private final StatsClient statsClient;
 
     @PostMapping("/hit")
-    public ResponseEntity<Void> saveStats(@RequestBody EndpointHitDto EndpointHitDto) {
-        statsClient.saveStats(EndpointHitDto);
+    public ResponseEntity<Void> saveStats(@RequestBody EndpointHitDto endpointHitDto) {
+        statsClient.saveStats(endpointHitDto);
         return ResponseEntity.ok().build();
     }
 
