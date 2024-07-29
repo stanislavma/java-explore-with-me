@@ -21,7 +21,7 @@ public class MainController {
         EndpointHitDto endpointHitDto = new EndpointHitDto(
                 null,
                 "ewm-main-service",
-                "/events/" ,
+                "/events/",
                 request.getRemoteAddr(),
                 LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
         );
