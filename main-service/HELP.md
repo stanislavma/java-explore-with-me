@@ -1,19 +1,31 @@
-```bash
-docker build -t stasma/main_service_image:latest .
+## Stats service
+
+### run without docker - add to environment variables this params
+
 ```
+STATS_SERVICE_URL=http://localhost:9090;POSTGRES_DB=ewm;POSTGRES_HOST=localhost;POSTGRES_PASSWORD=postgres;POSTGRES_PORT=5432;POSTGRES_USER=postgres;SERVER_PORT=8080;
+```
+
+---
+
+### docker commands
  
 ```bash
- docker push stasma/main_service_image:latest
-```
- 
-```bash
-docker run --name main_service_container -p 8081:8081 -p 8080:8080 main_service_image
+docker build -t stasma/stats_service_image:latest .
 ```
 
 ```bash
-docker start main_service_container 
+ docker push stasma/stats_service_image:latest
 ```
 
 ```bash
-docker exec -it main_service_container /bin/sh
+docker run --name stats_service_container -p 9091:9091 -p 9090:9090 stats_service_image
+```
+
+```bash
+docker start stats_service_container 
+```
+
+```bash
+docker exec -it stats_service_container /bin/sh
 ```

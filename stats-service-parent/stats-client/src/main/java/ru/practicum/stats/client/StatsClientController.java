@@ -9,7 +9,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/stats")
+@RequestMapping("/")
 public class StatsClientController {
 
     private final StatsClient statsClient;
@@ -20,7 +20,7 @@ public class StatsClientController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping()
+    @GetMapping("/stats")
     public ResponseEntity<Object> getStats(@RequestParam String start,
                                            @RequestParam String end,
                                            @RequestParam(required = false) List<String> uris,

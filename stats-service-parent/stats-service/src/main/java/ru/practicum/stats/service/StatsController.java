@@ -1,6 +1,7 @@
 package ru.practicum.stats.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.dto.EndpointHitDto;
@@ -14,19 +15,19 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/stats")
+@RequestMapping("/")
 public class StatsController {
 
     private final StatsService statsService;
 
     @PostMapping("/hit")
-    public ResponseEntity<Void> saveStats(@RequestBody EndpointHitDto endpointHitDto) {
+    public ResponseEntity<EndpointHit> saveStats(@RequestBody EndpointHitDto endpointHitDto) {
         EndpointHit endpointHit = EndpointHitDtoMapper.toEntity(endpointHitDto);
         statsService.save(endpointHit);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.status(HttpStatus.CREATED).body(endpointHit);
     }
 
-    @GetMapping
+    @GetMapping("/stats")
     public ResponseEntity<List<ViewStatsDto>> getStats(@RequestParam String start,
                                                        @RequestParam String end,
                                                        @RequestParam(required = false) List<String> uris,
