@@ -1,4 +1,4 @@
-package ru.practicum.stats.client;
+package ru.practicum.stats.client.client;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;

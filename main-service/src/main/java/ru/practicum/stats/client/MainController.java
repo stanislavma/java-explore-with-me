@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.dto.EndpointHitDto;
+import ru.practicum.stats.client.client.StatsClient;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
@@ -16,7 +17,7 @@ public class MainController {
 
     private final StatsClient statsClient;
 
-    @GetMapping("/")
+    @GetMapping()
     public ResponseEntity<?> getEvents(HttpServletRequest request) {
         EndpointHitDto endpointHitDto = new EndpointHitDto(
                 null,

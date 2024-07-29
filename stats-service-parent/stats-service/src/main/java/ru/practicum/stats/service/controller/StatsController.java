@@ -1,4 +1,4 @@
-package ru.practicum.stats.service;
+package ru.practicum.stats.service.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -11,7 +11,6 @@ import ru.practicum.stats.service.model.EndpointHit;
 import ru.practicum.stats.service.service.StatsService;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -35,11 +34,9 @@ public class StatsController {
 
         List<EndpointHit> endpointHits = statsService.getStats(start, end, uris, unique);
 
-        List<ViewStatsDto> viewStatsDtoList = endpointHits.stream()
-                .map(endpointHit -> EndpointHitDtoMapper
-                        .toViewStatsDto(endpointHit.getApp(), endpointHit.getUri(), endpointHit.getHits()))
-                .collect(Collectors.toList());
+        List<ViewStatsDto> viewStatsDtoList = EndpointHitDtoMapper.toViewStatsDtoList(endpointHits);
 
         return ResponseEntity.ok(viewStatsDtoList);
     }
+
 }
