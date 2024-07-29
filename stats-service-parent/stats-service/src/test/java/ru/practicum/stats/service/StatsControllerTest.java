@@ -40,10 +40,10 @@ class StatsControllerTest {
 
     @Test
     void saveStats_shouldReturnOk_whenStatsAreValid() throws Exception {
-        mockMvc.perform(post("/stats/hit")
+        mockMvc.perform(post("/hit")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(endpointHitDto)))
-                .andExpect(status().isOk());
+                .andExpect(status().isCreated());
     }
 
     @Test
