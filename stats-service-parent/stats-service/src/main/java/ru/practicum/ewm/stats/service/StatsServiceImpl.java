@@ -2,8 +2,10 @@ package ru.practicum.ewm.stats.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import ru.practicum.ewm.stats.common.DateTimeConverter;
+import ru.practicum.ewm.stats.exception.ValidationException;
 import ru.practicum.ewm.stats.repository.StatsRepository;
 import ru.practicum.ewm.stats.model.EndpointHit;
 
@@ -29,8 +31,9 @@ public class StatsServiceImpl implements StatsService {
         LocalDateTime startTime = DateTimeConverter.parseDateTime(start);
         LocalDateTime endTime = DateTimeConverter.parseDateTime(end);
 
-        List<EndpointHit> endpointHits;
+        validateDates(startTime, endTime);
 
+        List<EndpointHit> endpointHits;
         if (uriList == null || uriList.isEmpty()) {
             if (unique) {
                 endpointHits = statsRepository.findUniqueStatsWithoutUris(startTime, endTime);
@@ -55,6 +58,12 @@ public class StatsServiceImpl implements StatsService {
         return uriList.stream()
                 .map(s -> s.replace("[", "").replace("]", "").trim())
                 .collect(Collectors.toList());
+    }
+
+    private static void validateDates(LocalDateTime start, LocalDateTime end) throws ValidationException {
+        if (start.isAfter(end)) {
+            throw new ValidationException("Начальная дата не может быть позже конечной даты.", HttpStatus.BAD_REQUEST);
+        }
     }
 
 }
