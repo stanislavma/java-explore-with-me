@@ -3,7 +3,7 @@ package ru.practicum.ewm.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ru.practicum.ewm.enums.ParticipationRequestState;
+import ru.practicum.ewm.enums.RequestState;
 
 import java.util.List;
 
@@ -13,6 +13,7 @@ import java.util.List;
 public class EventRequestStatusUpdateRequest {
 
     private List<Long> requestIds;
-    private ParticipationRequestState status;
+
+    private RequestState status;
 
 }

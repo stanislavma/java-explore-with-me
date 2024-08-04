@@ -4,6 +4,7 @@ import lombok.*;
 import ru.practicum.ewm.enums.EventState;
 
 import javax.persistence.*;
+import javax.validation.constraints.PositiveOrZero;
 import java.time.LocalDateTime;
 
 @Entity
@@ -28,7 +29,7 @@ public class Event {
     @JoinColumn(name = "initiator_id", nullable = false)
     private User initiator;
 
-    @OneToOne()
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "location_id", nullable = false)
     private Location location;
 
@@ -52,6 +53,7 @@ public class Event {
     private Boolean paid;
 
     @Column(nullable = false)
+    @PositiveOrZero
     private Integer participantLimit;
 
     @Column(nullable = false)

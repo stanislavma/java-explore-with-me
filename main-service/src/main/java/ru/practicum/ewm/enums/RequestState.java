@@ -1,6 +1,6 @@
 package ru.practicum.ewm.enums;
 
-public enum ParticipationRequestState {
+public enum RequestState {
     PENDING,
     CONFIRMED,
     REJECTED,

@@ -28,9 +28,29 @@ public class CompilationServiceImpl implements CompilationService {
         compilation.setTitle(title);
         compilation.setPinned(pinned != null ? pinned : false);
         if (eventIds != null && !eventIds.isEmpty()) {
-            Set<Event> events = new HashSet<>(eventRepository.findAllById(eventIds));
+            Set<Event> events = new HashSet<>(eventRepository.findAllByIdWithInitiatorAndCategory(eventIds));
             compilation.setEvents(events);
         }
+        return compilationRepository.save(compilation);
+    }
+
+    @Override
+    @Transactional
+    public Compilation updateCompilation(Long compId, String title, Boolean pinned, Set<Long> eventIds) {
+        Compilation compilation = compilationRepository.findByIdWithEvents(compId)
+                .orElseThrow(() -> new EntityNotFoundException("Compilation with id=" + compId + " was not found"));
+
+        if (title != null) {
+            compilation.setTitle(title);
+        }
+        if (pinned != null) {
+            compilation.setPinned(pinned);
+        }
+        if (eventIds != null) {
+            Set<Event> events = new HashSet<>(eventRepository.findAllByIdWithInitiatorAndCategory(eventIds));
+            compilation.setEvents(events);
+        }
+
         return compilationRepository.save(compilation);
     }
 
@@ -44,28 +64,8 @@ public class CompilationServiceImpl implements CompilationService {
     }
 
     @Override
-    @Transactional
-    public Compilation updateCompilation(Long compId, String title, Boolean pinned, Set<Long> eventIds) {
-        Compilation compilation = compilationRepository.findById(compId)
-                .orElseThrow(() -> new EntityNotFoundException("Compilation with id=" + compId + " was not found"));
-
-        if (title != null) {
-            compilation.setTitle(title);
-        }
-        if (pinned != null) {
-            compilation.setPinned(pinned);
-        }
-        if (eventIds != null) {
-            Set<Event> events = new HashSet<>(eventRepository.findAllById(eventIds));
-            compilation.setEvents(events);
-        }
-
-        return compilationRepository.save(compilation);
-    }
-
-    @Override
     public Compilation getCompilationById(Long compId) {
-        return compilationRepository.findById(compId)
+        return compilationRepository.findByIdWithEvents(compId)
                 .orElseThrow(() -> new EntityNotFoundException("Compilation with id=" + compId + " was not found"));
     }
 
@@ -79,15 +79,5 @@ public class CompilationServiceImpl implements CompilationService {
         }
     }
 
-    @Override
-    @Transactional(readOnly = true)
-    public List<Compilation> getCompilations(Boolean pinned, int from, int size) {
-        PageRequest pageRequest = PageRequest.of(from / size, size);
-        if (pinned != null) {
-            return compilationRepository.findAllByPinned(pinned, pageRequest);
-        } else {
-            return compilationRepository.findAll(pageRequest).getContent();
-        }
-    }
 
 }

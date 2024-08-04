@@ -3,13 +3,14 @@ package ru.practicum.ewm.controller.authorized;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import ru.practicum.ewm.controller.StatsData;
+import ru.practicum.ewm.controller.CalculatedData;
 import ru.practicum.ewm.dto.EventFullDto;
 import ru.practicum.ewm.dto.NewEventDto;
 import ru.practicum.ewm.dto.UpdateEventUserRequest;
 import ru.practicum.ewm.mapper.EventMapper;
 import ru.practicum.ewm.model.Event;
 import ru.practicum.ewm.service.EventService;
+import ru.practicum.ewm.service.impl.RequestService;
 import ru.practicum.ewm.stats.client.client.StatsClient;
 
 import javax.validation.Valid;
@@ -17,18 +18,25 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+/**
+ * REST-контроллер для работы с мероприятиями пользователя
+ * (создание, обновление, получение)
+ */
 @Slf4j
 @RestController
 @RequestMapping("/users/{userId}/events")
-public class EventPrivateController extends StatsData {
+public class EventPrivateController extends CalculatedData {
 
     private final EventService eventService;
 
-    public EventPrivateController(StatsClient statsClient, EventService eventService) {
-        super(statsClient);
+    public EventPrivateController(StatsClient statsClient, EventService eventService, RequestService requestService) {
+        super(statsClient, requestService);
         this.eventService = eventService;
     }
 
+    /**
+     * Создание мероприятия
+     */
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public EventFullDto createEvent(@PathVariable Long userId,
@@ -38,10 +46,14 @@ public class EventPrivateController extends StatsData {
         return EventMapper.toFullDto(event, 0L, 0L);
     }
 
+    /**
+     * Обновление мероприятия
+     */
     @PatchMapping("/{eventId}")
     public EventFullDto updateEvent(@PathVariable Long userId,
                                     @PathVariable Long eventId,
                                     @Valid @RequestBody UpdateEventUserRequest updateEventUserRequest) {
+
         Event updatedEvent = eventService.updateEventByInitiator(userId, eventId, updateEventUserRequest);
 
         long viewsCount = getViewsCount(updatedEvent);
@@ -50,6 +62,9 @@ public class EventPrivateController extends StatsData {
         return EventMapper.toFullDto(updatedEvent, viewsCount, confirmedRequestCount);
     }
 
+    /**
+     * Получение всех мероприятий пользователя
+     */
     @GetMapping
     public List<EventFullDto> getEventsByUser(@PathVariable Long userId,
                                               @RequestParam(defaultValue = "0") int from,
@@ -67,6 +82,9 @@ public class EventPrivateController extends StatsData {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Получение мероприятия пользователя
+     */
     @GetMapping("/{eventId}")
     public EventFullDto getEventByUser(@PathVariable Long userId,
                                        @PathVariable Long eventId) {
@@ -76,6 +94,5 @@ public class EventPrivateController extends StatsData {
         long confirmedRequestCount = getConfirmedRequestCount(event);
         return EventMapper.toFullDto(event, viewsCount, confirmedRequestCount);
     }
-
 
 }

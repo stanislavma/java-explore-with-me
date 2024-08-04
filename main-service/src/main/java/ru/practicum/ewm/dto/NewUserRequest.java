@@ -18,7 +18,7 @@ public class NewUserRequest {
     private String name;
 
     @NotBlank
-    @Size(max = 254)
+    @Size(min = 6, max = 254)
     @Email
     private String email;
 

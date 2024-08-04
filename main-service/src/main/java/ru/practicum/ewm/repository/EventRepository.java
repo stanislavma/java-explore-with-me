@@ -11,6 +11,7 @@ import ru.practicum.ewm.model.User;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 public interface EventRepository extends JpaRepository<Event, Long> {
 
@@ -22,8 +23,8 @@ public interface EventRepository extends JpaRepository<Event, Long> {
             "(COALESCE(:users, NULL) IS NULL OR e.initiator.id IN :users) AND " +
             "(COALESCE(:states, NULL) IS NULL OR e.state IN :states) AND " +
             "(COALESCE(:categories, NULL) IS NULL OR e.category.id IN :categories) AND " +
-            "(:start IS NULL OR e.eventDate >= :start) AND " +
-            "(:end IS NULL OR e.eventDate <= :end)")
+            "((cast(:start as date)) IS NULL OR e.eventDate >= :start) AND " +
+            "((cast(:end as date)) IS NULL OR e.eventDate <= :end)")
     List<Event> findAllByCriteria(@Param("users") List<Long> users,
                                   @Param("states") List<EventState> states,
                                   @Param("categories") List<Long> categories,
@@ -47,5 +48,14 @@ public interface EventRepository extends JpaRepository<Event, Long> {
                                     Pageable pageable);
 
     Optional<Event> findByIdAndState(Long id, EventState state);
+
+    @Query("SELECT DISTINCT e FROM Event e LEFT JOIN FETCH e.initiator " +
+            "LEFT JOIN FETCH e.category WHERE e IN :events")
+    List<Event> findAllWithInitiatorAndCategory(@Param("events") Set<Event> events);
+
+    @Query("SELECT DISTINCT e FROM Event e LEFT JOIN FETCH e.initiator " +
+            "LEFT JOIN FETCH e.category WHERE e.id IN :eventIds")
+    List<Event> findAllByIdWithInitiatorAndCategory(@Param("eventIds") Set<Long> eventIds);
+
 
 }

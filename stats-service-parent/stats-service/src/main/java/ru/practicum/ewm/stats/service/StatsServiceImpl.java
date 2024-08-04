@@ -9,6 +9,7 @@ import ru.practicum.ewm.stats.model.EndpointHit;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -37,16 +38,23 @@ public class StatsServiceImpl implements StatsService {
                 endpointHits = statsRepository.findStatsWithoutUris(startTime, endTime);
             }
         } else {
+            List<String> uriListCleaned = cleanList(uriList);
             if (unique) {
-                endpointHits = statsRepository.findUniqueStats(startTime, endTime, uriList);
+                endpointHits = statsRepository.findUniqueStats(startTime, endTime, uriListCleaned);
             } else {
-                endpointHits = statsRepository.findStats(startTime, endTime, uriList);
+                endpointHits = statsRepository.findStats(startTime, endTime, uriListCleaned);
             }
         }
 
         log.info("stats records - {}", endpointHits.size());
 
         return endpointHits;
+    }
+
+    public static List<String> cleanList(List<String> uriList) {
+        return uriList.stream()
+                .map(s -> s.replace("[", "").replace("]", "").trim())
+                .collect(Collectors.toList());
     }
 
 }

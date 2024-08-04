@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 import javax.validation.constraints.*;
 import java.time.LocalDateTime;
 
+import static ru.practicum.ewm.common.Constants.DATE_TIME_FORMAT_PATTERN;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -32,7 +34,7 @@ public class NewEventDto {
 
     @NotNull
     @Future
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = DATE_TIME_FORMAT_PATTERN)
     private LocalDateTime eventDate;
 
     @NotNull

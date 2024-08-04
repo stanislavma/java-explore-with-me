@@ -1,13 +1,18 @@
 package ru.practicum.ewm.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.practicum.ewm.enums.UpdateStateAction;
 import ru.practicum.ewm.model.Location;
 
+import javax.validation.constraints.PositiveOrZero;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
+
+import static ru.practicum.ewm.common.Constants.DATE_TIME_FORMAT_PATTERN;
 
 @Data
 @NoArgsConstructor
@@ -24,11 +29,20 @@ public class UpdateEventUserRequest {
     private String description;
 
     private Long category;
+
+    @JsonFormat(pattern = DATE_TIME_FORMAT_PATTERN)
     private LocalDateTime eventDate;
+
     private Location location;
+
     private Boolean paid;
+
+    @PositiveOrZero
     private Integer participantLimit;
+
     private Boolean requestModeration;
+
+    @JsonProperty("stateAction")
     private UpdateStateAction updateStateAction;
 
 }

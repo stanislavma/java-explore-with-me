@@ -18,20 +18,20 @@ public class Location {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private Double latitude;
+    @Column(name = "lat", nullable = false)
+    private Double lat;
 
-    @Column(nullable = false)
-    private Double longitude;
+    @Column(name = "lon", nullable = false)
+    private Double lon;
 
     public Location(Double lat, Double lon) {
-        this.latitude = lat;
-        this.longitude = lon;
+        this.lat = lat;
+        this.lon = lon;
     }
 
     public Location(LocationDto location) {
-        this.latitude = location.getLat();
-        this.longitude = location.getLon();
+        this.lat = location.getLat();
+        this.lon = location.getLon();
     }
 
 }

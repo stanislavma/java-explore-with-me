@@ -1,10 +1,13 @@
 package ru.practicum.ewm.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
-import ru.practicum.ewm.enums.ParticipationRequestState;
+import ru.practicum.ewm.enums.RequestState;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+
+import static ru.practicum.ewm.common.Constants.DATE_TIME_FORMAT_PATTERN;
 
 @Entity
 @Getter
@@ -16,8 +19,7 @@ import java.time.LocalDateTime;
 public class ParticipationRequest {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -29,8 +31,9 @@ public class ParticipationRequest {
     private User requester;
 
     @Enumerated(EnumType.STRING)
-    private ParticipationRequestState status;
+    private RequestState status;
 
+    @JsonFormat(pattern = DATE_TIME_FORMAT_PATTERN)
     private LocalDateTime created;
 
 }

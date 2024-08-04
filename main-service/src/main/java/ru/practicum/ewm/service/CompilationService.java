@@ -17,7 +17,4 @@ public interface CompilationService {
 
     List<Compilation> getAllCompilations(Boolean pinned, int from, int size);
 
-    List<Compilation> getCompilations(Boolean pinned, int from, int size);
-
-
 }
