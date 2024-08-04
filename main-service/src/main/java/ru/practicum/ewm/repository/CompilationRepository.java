@@ -1,6 +1,5 @@
 package ru.practicum.ewm.repository;
 
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -14,7 +13,12 @@ import java.util.Optional;
 @Repository
 public interface CompilationRepository extends JpaRepository<Compilation, Long> {
 
-    List<Compilation> findAllByPinned(Boolean pinned, Pageable pageable);
+    @Query("SELECT DISTINCT c FROM Compilation c " +
+            "LEFT JOIN FETCH c.events e " +
+            "LEFT JOIN FETCH e.initiator " +
+            "LEFT JOIN FETCH e.category " +
+            "WHERE c.pinned = :pinned")
+    List<Compilation> findAllByPinnedWithEvents(@Param("pinned") Boolean pinned, Pageable pageable);
 
     @Query("SELECT DISTINCT c FROM Compilation c " +
             "LEFT JOIN FETCH c.events e " +
@@ -26,8 +30,7 @@ public interface CompilationRepository extends JpaRepository<Compilation, Long> 
     @Query("SELECT DISTINCT c FROM Compilation c " +
             "LEFT JOIN FETCH c.events e " +
             "LEFT JOIN FETCH e.initiator " +
-            "LEFT JOIN FETCH e.category " +
-            "WHERE (:pinned IS NULL OR c.pinned = :pinned)")
-    List<Compilation> findAllWithEvents(@Param("pinned") Boolean pinned, Pageable pageable);
+            "LEFT JOIN FETCH e.category ")
+    List<Compilation> findAllWithEvents(Pageable pageable);
 
 }

@@ -15,6 +15,9 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Контроллер для администратора мероприятий
+ */
 @RestController
 @RequestMapping("/admin/events")
 public class EventAdminController extends CalculatedData {

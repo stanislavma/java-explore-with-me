@@ -3,12 +3,10 @@ package ru.practicum.ewm.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-import ru.practicum.ewm.dto.stats.ViewStatsDto;
 import ru.practicum.ewm.model.Event;
 import ru.practicum.ewm.service.impl.RequestService;
 import ru.practicum.ewm.stats.client.client.StatsClient;
 
-import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -80,8 +78,7 @@ public class CalculatedData {
     }
 
     protected long getConfirmedRequestCount(Event event) {
-        Long confirmedRequestCount = requestService.getConfirmedRequestsCount(event.getId());
-        return confirmedRequestCount;
+        return requestService.getConfirmedRequestsCount(event.getId());
     }
 
 }

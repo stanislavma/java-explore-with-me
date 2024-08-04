@@ -3,6 +3,7 @@ package ru.practicum.ewm.service.impl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,7 +13,9 @@ import ru.practicum.ewm.model.User;
 import ru.practicum.ewm.repository.UserRepository;
 import ru.practicum.ewm.service.UserService;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -39,11 +42,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> getAll(List<Long> ids, int from, int size) {
-        PageRequest pageRequest = PageRequest.of(from / size, size);
+        PageRequest pageRequest = PageRequest.of(from / size, size, Sort.by(Sort.Direction.ASC, "id"));
         if (ids == null || ids.isEmpty()) {
             return userRepository.findAll(pageRequest).getContent();
         } else {
-            return userRepository.findAllById(ids);
+            return userRepository.findAllById(ids).stream()
+                    .sorted(Comparator.comparing(User::getId))
+                    .collect(Collectors.toList());
         }
     }
 

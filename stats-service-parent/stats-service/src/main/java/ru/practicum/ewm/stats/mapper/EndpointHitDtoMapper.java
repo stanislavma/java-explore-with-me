@@ -26,20 +26,6 @@ public class EndpointHitDtoMapper {
                 .build();
     }
 
-    public static EndpointHitDto toDto(EndpointHit entity) {
-        if (entity == null) {
-            return null;
-        }
-
-        return new EndpointHitDto(
-                entity.getId(),
-                entity.getApp(),
-                entity.getUri(),
-                entity.getIp(),
-                entity.getHitDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
-        );
-    }
-
     public static ViewStatsDto toViewStatsDto(EndpointHit entity) {
         if (entity == null) {
             return null;

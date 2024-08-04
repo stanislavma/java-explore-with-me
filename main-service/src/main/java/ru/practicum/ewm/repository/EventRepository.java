@@ -50,10 +50,6 @@ public interface EventRepository extends JpaRepository<Event, Long> {
     Optional<Event> findByIdAndState(Long id, EventState state);
 
     @Query("SELECT DISTINCT e FROM Event e LEFT JOIN FETCH e.initiator " +
-            "LEFT JOIN FETCH e.category WHERE e IN :events")
-    List<Event> findAllWithInitiatorAndCategory(@Param("events") Set<Event> events);
-
-    @Query("SELECT DISTINCT e FROM Event e LEFT JOIN FETCH e.initiator " +
             "LEFT JOIN FETCH e.category WHERE e.id IN :eventIds")
     List<Event> findAllByIdWithInitiatorAndCategory(@Param("eventIds") Set<Long> eventIds);
 

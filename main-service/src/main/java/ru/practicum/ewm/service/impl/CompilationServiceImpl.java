@@ -73,11 +73,10 @@ public class CompilationServiceImpl implements CompilationService {
     public List<Compilation> getAllCompilations(Boolean pinned, int from, int size) {
         PageRequest pageRequest = PageRequest.of(from / size, size);
         if (pinned != null) {
-            return compilationRepository.findAllByPinned(pinned, pageRequest);
+            return compilationRepository.findAllByPinnedWithEvents(pinned, pageRequest);
         } else {
-            return compilationRepository.findAll(pageRequest).getContent();
+            return compilationRepository.findAllWithEvents(pageRequest);
         }
     }
-
 
 }

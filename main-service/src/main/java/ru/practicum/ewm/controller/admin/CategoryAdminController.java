@@ -12,6 +12,9 @@ import ru.practicum.ewm.service.CategoryService;
 import javax.validation.Valid;
 import java.util.List;
 
+/**
+ * Контроллер для администратора категорий
+ */
 @RestController
 @RequestMapping("/admin/categories")
 @RequiredArgsConstructor

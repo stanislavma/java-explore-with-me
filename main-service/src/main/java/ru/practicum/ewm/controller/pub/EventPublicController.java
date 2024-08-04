@@ -37,7 +37,7 @@ public class EventPublicController extends CalculatedData {
             @RequestParam(required = false) String text,
             @RequestParam(required = false) List<Long> categories,
             @RequestParam(required = false) Boolean paid,
-            @RequestParam(required = false) @DateTimeFormat(pattern =DATE_TIME_FORMAT_PATTERN) LocalDateTime rangeStart,
+            @RequestParam(required = false) @DateTimeFormat(pattern = DATE_TIME_FORMAT_PATTERN) LocalDateTime rangeStart,
             @RequestParam(required = false) @DateTimeFormat(pattern = DATE_TIME_FORMAT_PATTERN) LocalDateTime rangeEnd,
             @RequestParam(defaultValue = "false") Boolean onlyAvailable,
             @RequestParam(required = false, defaultValue = "VIEWS") String sort,
@@ -59,7 +59,7 @@ public class EventPublicController extends CalculatedData {
                 return Long.compare(views2, views1);
             });
         } else {
-         // sort by event date
+            // sort by event date
             events.sort((e1, e2) -> e2.getEventDate().compareTo(e1.getEventDate()));
         }
 
@@ -73,15 +73,12 @@ public class EventPublicController extends CalculatedData {
 
     @GetMapping("/{id}")
     public EventFullDto getEvent(@PathVariable Long id, HttpServletRequest request) {
-        long viewsBeforeCount = getViewsCount(eventService.getPublishedEvent(id, request.getRemoteAddr()));
-
         Event event = eventService.getPublishedEvent(id, request.getRemoteAddr());
 
-        long viewsAfterCount = getViewsCount(event);
-
+        long viewsCount = getViewsCount(event);
         long confirmedRequestCount = getConfirmedRequestCount(event);
 
-        return EventMapper.toFullDto(event, viewsAfterCount, confirmedRequestCount);
+        return EventMapper.toFullDto(event, viewsCount, confirmedRequestCount);
     }
 
 }

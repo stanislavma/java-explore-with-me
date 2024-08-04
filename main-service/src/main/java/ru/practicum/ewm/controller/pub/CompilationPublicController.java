@@ -1,6 +1,5 @@
 package ru.practicum.ewm.controller.pub;
 
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.ewm.controller.CalculatedData;
 import ru.practicum.ewm.dto.CompilationDto;
@@ -27,7 +26,6 @@ public class CompilationPublicController extends CalculatedData {
     }
 
     @GetMapping
-    @Transactional(readOnly = true)
     public List<CompilationDto> getCompilations(
             @RequestParam(required = false) Boolean pinned,
             @RequestParam(defaultValue = "0") int from,

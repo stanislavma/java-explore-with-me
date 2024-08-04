@@ -1,7 +1,6 @@
 package ru.practicum.ewm.controller.admin;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.ewm.controller.CalculatedData;
 import ru.practicum.ewm.dto.CompilationDto;
@@ -19,9 +18,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+/**
+ * Контроллер для администратора подборок
+ */
 @RestController
 @RequestMapping("/admin/compilations")
 public class CompilationAdminController extends CalculatedData {
+
     private final CompilationService compilationService;
 
     public CompilationAdminController(CompilationService compilationService,

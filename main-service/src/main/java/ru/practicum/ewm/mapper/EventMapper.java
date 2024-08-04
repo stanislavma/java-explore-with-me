@@ -8,7 +8,6 @@ import ru.practicum.ewm.dto.LocationDto;
 import ru.practicum.ewm.dto.NewEventDto;
 import ru.practicum.ewm.model.Event;
 import ru.practicum.ewm.model.Location;
-import ru.practicum.ewm.stats.client.client.StatsClient;
 
 import java.util.List;
 import java.util.Map;
@@ -17,8 +16,6 @@ import java.util.stream.Collectors;
 @Slf4j
 @AllArgsConstructor
 public class EventMapper {
-
-    private static final StatsClient statsClient = null;
 
     public static EventFullDto toFullDto(Event event, Long viewsCount, Long confirmedRequestsCount) {
         return EventFullDto.builder()

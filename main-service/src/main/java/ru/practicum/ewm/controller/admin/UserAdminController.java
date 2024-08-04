@@ -12,6 +12,9 @@ import ru.practicum.ewm.service.UserService;
 import javax.validation.Valid;
 import java.util.List;
 
+/**
+ * Контроллер для администратора пользователей
+ */
 @RestController
 @RequestMapping("/admin/users")
 @RequiredArgsConstructor

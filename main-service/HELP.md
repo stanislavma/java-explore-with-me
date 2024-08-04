@@ -1,4 +1,4 @@
-## Stats service
+## Main service
 
 ### run without docker - add to environment variables this params
 
@@ -9,7 +9,6 @@ POSTGRES_HOST=localhost;
 POSTGRES_USER=postgres;
 POSTGRES_PASSWORD=postgres;
 POSTGRES_PORT=5432;
-
 SERVER_PORT=8080;
 ```
 

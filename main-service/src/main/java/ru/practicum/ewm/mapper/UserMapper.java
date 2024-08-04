@@ -50,15 +50,4 @@ public class UserMapper {
                 .build();
     }
 
-    public static User toEntity(UserDto dto) {
-        if (dto == null) {
-            return null;
-        }
-
-        return User.builder()
-                .id(dto.getId())
-                .name(dto.getName())
-                .email(dto.getEmail())
-                .build();
-    }
 }
