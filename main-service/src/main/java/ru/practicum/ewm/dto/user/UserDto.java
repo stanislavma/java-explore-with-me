@@ -1,4 +1,4 @@
-package ru.practicum.ewm.dto;
+package ru.practicum.ewm.dto.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,9 +7,12 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class LocationDto {
+public class UserDto {
 
-    private Double lat;
-    private Double lon;
+    private Long id;
+
+    private String name;
+
+    private String email;
 
 }

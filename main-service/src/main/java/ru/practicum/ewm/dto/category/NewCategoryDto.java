@@ -1,4 +1,4 @@
-package ru.practicum.ewm.dto;
+package ru.practicum.ewm.dto.category;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,9 +10,7 @@ import javax.validation.constraints.Size;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CategoryDto {
-
-    private Long id;
+public class NewCategoryDto {
 
     @NotBlank
     @Size(min = 1, max = 50)

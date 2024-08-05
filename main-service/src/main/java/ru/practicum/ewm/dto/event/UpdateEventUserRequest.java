@@ -1,13 +1,15 @@
-package ru.practicum.ewm.dto;
+package ru.practicum.ewm.dto.event;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ru.practicum.ewm.enums.EventState;
+import ru.practicum.ewm.enums.UpdateStateAction;
+import ru.practicum.ewm.model.Location;
 
 import javax.validation.constraints.PositiveOrZero;
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 import static ru.practicum.ewm.common.Constants.DATE_TIME_FORMAT_PATTERN;
@@ -15,20 +17,24 @@ import static ru.practicum.ewm.common.Constants.DATE_TIME_FORMAT_PATTERN;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-public class EventFullDto {
+public class UpdateEventUserRequest {
 
-    private Long id;
+    @Size(min = 3, max = 120)
     private String title;
+
+    @Size(min = 20, max = 2000)
     private String annotation;
+
+    @Size(min = 20, max = 7000)
     private String description;
-    private CategoryDto category;
+
+    private Long category;
 
     @JsonFormat(pattern = DATE_TIME_FORMAT_PATTERN)
     private LocalDateTime eventDate;
 
-    private UserShortDto initiator;
-    private LocationDto location;
+    private Location location;
+
     private Boolean paid;
 
     @PositiveOrZero
@@ -36,16 +42,7 @@ public class EventFullDto {
 
     private Boolean requestModeration;
 
-    private EventState state;
-
-    @JsonFormat(pattern = DATE_TIME_FORMAT_PATTERN)
-    private LocalDateTime createdOn;
-
-    @JsonFormat(pattern = DATE_TIME_FORMAT_PATTERN)
-    private LocalDateTime publishedOn;
-
-    private Long views;
-
-    private Long confirmedRequests;
+    @JsonProperty("stateAction")
+    private UpdateStateAction updateStateAction;
 
 }

@@ -3,8 +3,8 @@ package ru.practicum.ewm.controller.admin;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import ru.practicum.ewm.dto.NewUserRequest;
-import ru.practicum.ewm.dto.UserDto;
+import ru.practicum.ewm.dto.user.NewUserRequest;
+import ru.practicum.ewm.dto.user.UserDto;
 import ru.practicum.ewm.mapper.UserMapper;
 import ru.practicum.ewm.model.User;
 import ru.practicum.ewm.service.UserService;
@@ -35,8 +35,7 @@ public class UserAdminController {
     @ResponseStatus(HttpStatus.CREATED)
     public UserDto createUser(@Valid @RequestBody NewUserRequest newUserRequest) {
         User user = UserMapper.toEntity(newUserRequest);
-        User createdUser = userService.add(user);
-        return UserMapper.toDto(createdUser);
+        return UserMapper.toDto(userService.add(user));
     }
 
     @DeleteMapping("/{userId}")

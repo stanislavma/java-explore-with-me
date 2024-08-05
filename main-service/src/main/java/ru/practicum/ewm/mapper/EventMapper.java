@@ -2,10 +2,10 @@ package ru.practicum.ewm.mapper;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import ru.practicum.ewm.dto.EventFullDto;
-import ru.practicum.ewm.dto.EventShortDto;
-import ru.practicum.ewm.dto.LocationDto;
-import ru.practicum.ewm.dto.NewEventDto;
+import ru.practicum.ewm.dto.event.EventFullDto;
+import ru.practicum.ewm.dto.event.EventShortDto;
+import ru.practicum.ewm.dto.location.LocationDto;
+import ru.practicum.ewm.dto.event.NewEventDto;
 import ru.practicum.ewm.model.Event;
 import ru.practicum.ewm.model.Location;
 

@@ -4,9 +4,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.ewm.controller.CalculatedData;
-import ru.practicum.ewm.dto.EventFullDto;
-import ru.practicum.ewm.dto.NewEventDto;
-import ru.practicum.ewm.dto.UpdateEventUserRequest;
+import ru.practicum.ewm.dto.event.EventFullDto;
+import ru.practicum.ewm.dto.event.NewEventDto;
+import ru.practicum.ewm.dto.event.UpdateEventUserRequest;
 import ru.practicum.ewm.mapper.EventMapper;
 import ru.practicum.ewm.model.Event;
 import ru.practicum.ewm.service.EventService;
@@ -42,7 +42,6 @@ public class EventPrivateController extends CalculatedData {
     public EventFullDto createEvent(@PathVariable Long userId,
                                     @Valid @RequestBody NewEventDto newEventDto) {
         Event event = eventService.add(userId, newEventDto);
-
         return EventMapper.toFullDto(event, 0L, 0L);
     }
 
@@ -55,11 +54,7 @@ public class EventPrivateController extends CalculatedData {
                                     @Valid @RequestBody UpdateEventUserRequest updateEventUserRequest) {
 
         Event updatedEvent = eventService.updateEventByInitiator(userId, eventId, updateEventUserRequest);
-
-        long viewsCount = getViewsCount(updatedEvent);
-        long confirmedRequestCount = getConfirmedRequestCount(updatedEvent);
-
-        return EventMapper.toFullDto(updatedEvent, viewsCount, confirmedRequestCount);
+        return EventMapper.toFullDto(updatedEvent, getViewsCount(updatedEvent), getConfirmedRequestCount(updatedEvent));
     }
 
     /**
@@ -89,10 +84,7 @@ public class EventPrivateController extends CalculatedData {
     public EventFullDto getEventByUser(@PathVariable Long userId,
                                        @PathVariable Long eventId) {
         Event event = eventService.getEventByInitiator(userId, eventId);
-
-        long viewsCount = getViewsCount(event);
-        long confirmedRequestCount = getConfirmedRequestCount(event);
-        return EventMapper.toFullDto(event, viewsCount, confirmedRequestCount);
+        return EventMapper.toFullDto(event, getViewsCount(event), getConfirmedRequestCount(event));
     }
 
 }

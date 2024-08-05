@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
     private static final String USER_NOT_FOUND = "Пользователь не найден - %d";
-    private static final String USER_ALREADY_EXISTS = "Пользоватьль уже существует - %s";
+    private static final String USER_ALREADY_EXISTS = "Пользователь уже существует - %s";
 
     private final UserRepository userRepository;
 

@@ -1,7 +1,7 @@
 package ru.practicum.ewm.mapper;
 
 import org.springframework.stereotype.Component;
-import ru.practicum.ewm.dto.*;
+import ru.practicum.ewm.dto.request.ParticipationRequestDto;
 import ru.practicum.ewm.model.ParticipationRequest;
 
 import java.util.List;

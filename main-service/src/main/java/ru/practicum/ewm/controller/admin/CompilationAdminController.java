@@ -3,9 +3,9 @@ package ru.practicum.ewm.controller.admin;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.ewm.controller.CalculatedData;
-import ru.practicum.ewm.dto.CompilationDto;
-import ru.practicum.ewm.dto.NewCompilationDto;
-import ru.practicum.ewm.dto.UpdateCompilationRequest;
+import ru.practicum.ewm.dto.compilation.CompilationDto;
+import ru.practicum.ewm.dto.compilation.NewCompilationDto;
+import ru.practicum.ewm.dto.compilation.UpdateCompilationRequest;
 import ru.practicum.ewm.mapper.CompilationMapper;
 import ru.practicum.ewm.model.Compilation;
 import ru.practicum.ewm.service.CompilationService;
@@ -35,7 +35,6 @@ public class CompilationAdminController extends CalculatedData {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-//    @Transactional
     public CompilationDto createCompilation(@RequestBody @Valid NewCompilationDto dto) {
         Compilation compilation = compilationService.createCompilation(dto.getTitle(), dto.getPinned(), dto.getEvents());
 
@@ -46,7 +45,6 @@ public class CompilationAdminController extends CalculatedData {
     }
 
     @PatchMapping("/{compId}")
-//    @Transactional
     public CompilationDto updateCompilation(@PathVariable Long compId,
                                             @RequestBody @Valid UpdateCompilationRequest dto) {
         Compilation compilation = compilationService.updateCompilation(

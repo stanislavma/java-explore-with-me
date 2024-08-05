@@ -2,8 +2,8 @@ package ru.practicum.ewm.controller.admin;
 
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.ewm.controller.CalculatedData;
-import ru.practicum.ewm.dto.EventFullDto;
-import ru.practicum.ewm.dto.UpdateEventAdminRequest;
+import ru.practicum.ewm.dto.event.EventFullDto;
+import ru.practicum.ewm.dto.event.UpdateEventAdminRequest;
 import ru.practicum.ewm.mapper.EventMapper;
 import ru.practicum.ewm.model.Event;
 import ru.practicum.ewm.service.EventService;

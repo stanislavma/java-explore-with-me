@@ -1,6 +1,10 @@
 package ru.practicum.ewm.service;
 
-import ru.practicum.ewm.dto.*;
+import ru.practicum.ewm.dto.event.NewEventDto;
+import ru.practicum.ewm.dto.event.UpdateEventAdminRequest;
+import ru.practicum.ewm.dto.event.UpdateEventUserRequest;
+import ru.practicum.ewm.dto.request.EventRequestStatusUpdateRequest;
+import ru.practicum.ewm.dto.request.EventRequestStatusUpdateResult;
 import ru.practicum.ewm.model.Event;
 import ru.practicum.ewm.model.ParticipationRequest;
 

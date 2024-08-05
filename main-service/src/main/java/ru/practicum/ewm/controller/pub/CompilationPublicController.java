@@ -2,7 +2,7 @@ package ru.practicum.ewm.controller.pub;
 
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.ewm.controller.CalculatedData;
-import ru.practicum.ewm.dto.CompilationDto;
+import ru.practicum.ewm.dto.compilation.CompilationDto;
 import ru.practicum.ewm.mapper.CompilationMapper;
 import ru.practicum.ewm.model.Compilation;
 import ru.practicum.ewm.service.CompilationService;

@@ -1,15 +1,13 @@
-package ru.practicum.ewm.dto;
+package ru.practicum.ewm.dto.event;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ru.practicum.ewm.enums.UpdateStateAction;
-import ru.practicum.ewm.model.Location;
+import ru.practicum.ewm.dto.location.LocationDto;
 
-import javax.validation.constraints.PositiveOrZero;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.time.LocalDateTime;
 
 import static ru.practicum.ewm.common.Constants.DATE_TIME_FORMAT_PATTERN;
@@ -17,32 +15,37 @@ import static ru.practicum.ewm.common.Constants.DATE_TIME_FORMAT_PATTERN;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UpdateEventUserRequest {
+@Builder
+public class NewEventDto {
 
+    @NotBlank
     @Size(min = 3, max = 120)
     private String title;
 
+    @NotBlank
     @Size(min = 20, max = 2000)
     private String annotation;
 
+    @NotBlank
     @Size(min = 20, max = 7000)
     private String description;
 
+    @NotNull
     private Long category;
 
+    @NotNull
+    @Future
     @JsonFormat(pattern = DATE_TIME_FORMAT_PATTERN)
     private LocalDateTime eventDate;
 
-    private Location location;
+    @NotNull
+    private LocationDto location;
 
-    private Boolean paid;
+    private Boolean paid = false;
 
     @PositiveOrZero
-    private Integer participantLimit;
+    private Integer participantLimit = 0;
 
-    private Boolean requestModeration;
-
-    @JsonProperty("stateAction")
-    private UpdateStateAction updateStateAction;
+    private Boolean requestModeration = true;
 
 }
