@@ -3,7 +3,12 @@
 ### run without docker - add to environment variables this params
 
 ```
-POSTGRES_DB=stats;POSTGRES_HOST=localhost;POSTGRES_PASSWORD=postgres;POSTGRES_PORT=5432;POSTGRES_USER=postgres;SERVER_PORT=9090;
+POSTGRES_DB=stats;
+POSTGRES_HOST=localhost;
+POSTGRES_PASSWORD=postgres;
+POSTGRES_PORT=5432;
+POSTGRES_USER=postgres;
+SERVER_PORT=9090;
 ```
 
 ---
