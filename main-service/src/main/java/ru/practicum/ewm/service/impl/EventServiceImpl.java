@@ -146,8 +146,9 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
+    @Transactional
     public Event getEventById(Long eventId) {
-        return eventRepository.findById(eventId)
+        return eventRepository.findByIdWithDetails(eventId)
                 .orElseThrow(() -> new EntityNotFoundException("Событие не найдено: " + eventId));
     }
 
@@ -155,7 +156,7 @@ public class EventServiceImpl implements EventService {
     public List<Event> getEventsByInitiator(Long userId, int from, int size) {
         User initiator = userService.getById(userId);
         PageRequest pageRequest = PageRequest.of(from / size, size);
-        return eventRepository.findByInitiator(initiator, pageRequest);
+        return eventRepository.findByInitiatorIdWithComments(initiator.getId(), pageRequest);
     }
 
     @Override

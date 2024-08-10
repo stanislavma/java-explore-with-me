@@ -2,13 +2,18 @@ package ru.practicum.ewm.mapper;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import ru.practicum.ewm.dto.comment.CommentDto;
 import ru.practicum.ewm.dto.event.EventFullDto;
 import ru.practicum.ewm.dto.event.EventShortDto;
 import ru.practicum.ewm.dto.location.LocationDto;
 import ru.practicum.ewm.dto.event.NewEventDto;
+import ru.practicum.ewm.enums.CommentState;
+import ru.practicum.ewm.model.Comment;
 import ru.practicum.ewm.model.Event;
 import ru.practicum.ewm.model.Location;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -18,7 +23,7 @@ import java.util.stream.Collectors;
 public class EventMapper {
 
     public static EventFullDto toFullDto(Event event, Long viewsCount, Long confirmedRequestsCount) {
-        return EventFullDto.builder()
+        EventFullDto eventFullDto = EventFullDto.builder()
                 .id(event.getId())
                 .title(event.getTitle())
                 .annotation(event.getAnnotation())
@@ -36,6 +41,19 @@ public class EventMapper {
                 .views(viewsCount)
                 .confirmedRequests(confirmedRequestsCount)
                 .build();
+
+        List<Comment> comments = event.getComments();
+        if (comments != null) {
+            eventFullDto.setComments(comments.stream()
+                    .filter(comment -> comment.getState() == CommentState.APPROVED)
+                    .map(CommentMapper::toDto)
+                    .sorted(Comparator.comparing(CommentDto::getCreated).reversed())
+                    .collect(Collectors.toList()));
+        } else {
+            eventFullDto.setComments(Collections.emptyList());
+        }
+
+        return eventFullDto;
     }
 
     public static List<EventFullDto> toFullDto(List<Event> events,
