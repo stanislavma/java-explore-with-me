@@ -13,9 +13,9 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
-@Slf4j
 public class StatsServiceImpl implements StatsService {
 
     private final StatsRepository statsRepository;

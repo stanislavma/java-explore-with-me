@@ -38,9 +38,9 @@ import java.util.stream.Collectors;
 
 import static ru.practicum.ewm.common.Constants.DATE_TIME_FORMATTER;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
-@Slf4j
 public class EventServiceImpl implements EventService {
 
     private final LocationRepository locationRepository;

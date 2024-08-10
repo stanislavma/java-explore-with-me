@@ -19,10 +19,10 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
-@Slf4j
 public class CommentServiceImpl implements CommentService {
     private final CommentRepository commentRepository;
     private final EventRepository eventRepository;
@@ -52,6 +52,10 @@ public class CommentServiceImpl implements CommentService {
         return CommentMapper.toDto(savedComment);
     }
 
+    /**
+     * Обновить комментарий
+     * При обновлении комментария статус сбрасывается на "ожидает модерации"
+     */
     @Override
     @Transactional
     public CommentDto update(Long userId, Long commentId, NewCommentDto updateCommentDto) {
@@ -71,13 +75,15 @@ public class CommentServiceImpl implements CommentService {
     @Override
     @Transactional
     public void delete(Long userId, Long commentId) {
-
         Comment comment = getCommentByIdAndAuthor(userId, commentId);
 
         commentRepository.delete(comment);
         log.info("Комментарий удален: {}", commentId);
     }
 
+    /**
+     * Получить комментарии к событию
+     */
     @Override
     @Transactional
     public List<CommentDto> getEventComments(Long eventId) {
@@ -85,6 +91,9 @@ public class CommentServiceImpl implements CommentService {
         return comments.stream().map(CommentMapper::toDto).collect(Collectors.toList());
     }
 
+    /**
+     * Модерация комментария
+     */
     @Override
     @Transactional
     public CommentDto moderate(Long commentId, CommentState newState) {

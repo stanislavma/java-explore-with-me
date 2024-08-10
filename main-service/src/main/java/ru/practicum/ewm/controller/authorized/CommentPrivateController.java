@@ -10,10 +10,10 @@ import ru.practicum.ewm.service.impl.CommentServiceImpl;
 
 import javax.validation.Valid;
 
+@Slf4j
 @RestController
 @RequestMapping("/users/{userId}/comments")
 @RequiredArgsConstructor
-@Slf4j
 public class CommentPrivateController {
     private final CommentServiceImpl commentService;
 
@@ -22,7 +22,7 @@ public class CommentPrivateController {
     public CommentDto createComment(@PathVariable Long userId,
                                     @PathVariable Long eventId,
                                     @Valid @RequestBody NewCommentDto newCommentDto) {
-        log.info("Create comment request received for user {} and event {}", userId, eventId);
+        log.info("Запрос на создание комментария события {}, пользователь {} и ", eventId, userId);
         return commentService.add(userId, eventId, newCommentDto);
     }
 
