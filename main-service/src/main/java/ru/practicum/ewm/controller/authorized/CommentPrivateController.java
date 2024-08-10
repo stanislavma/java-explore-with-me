@@ -3,6 +3,7 @@ package ru.practicum.ewm.controller.authorized;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.ewm.dto.comment.CommentDto;
 import ru.practicum.ewm.dto.comment.NewCommentDto;
@@ -22,7 +23,7 @@ public class CommentPrivateController {
     public CommentDto createComment(@PathVariable Long userId,
                                     @PathVariable Long eventId,
                                     @Valid @RequestBody NewCommentDto newCommentDto) {
-        log.info("Запрос на создание комментария события {}, пользователь {} и ", eventId, userId);
+        log.info("Создание комментария на событие {}, пользователь {}", eventId, userId);
         return commentService.add(userId, eventId, newCommentDto);
     }
 
@@ -30,16 +31,18 @@ public class CommentPrivateController {
     public CommentDto updateComment(@PathVariable Long userId,
                                     @PathVariable Long commentId,
                                     @Valid @RequestBody NewCommentDto updateCommentDto) {
-        log.info("Update comment request received for comment {}", commentId);
+        log.info("Обновление комментария {}", commentId);
         return commentService.update(userId, commentId, updateCommentDto);
     }
 
     @DeleteMapping("/{commentId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteComment(@PathVariable Long userId,
-                              @PathVariable Long commentId) {
-        log.info("Delete comment request received for comment {}", commentId);
+    public ResponseEntity<Long> deleteComment(@PathVariable Long userId,
+                                              @PathVariable Long commentId) {
+        log.info("Удаление комментария {}", commentId);
         commentService.delete(userId, commentId);
+
+        return ResponseEntity.ok().body(commentId);
     }
 
 }
