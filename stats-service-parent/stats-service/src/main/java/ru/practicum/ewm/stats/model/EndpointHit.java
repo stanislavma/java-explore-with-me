@@ -2,7 +2,7 @@ package ru.practicum.ewm.stats.model;
 
 import lombok.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Builder

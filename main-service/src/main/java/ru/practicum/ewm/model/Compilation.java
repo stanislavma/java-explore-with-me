@@ -2,7 +2,8 @@ package ru.practicum.ewm.model;
 
 import lombok.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -32,6 +33,7 @@ public class Compilation {
             joinColumns = @JoinColumn(name = "compilation_id"),
             inverseJoinColumns = @JoinColumn(name = "event_id")
     )
+    @Builder.Default
     private Set<Event> events = new HashSet<>();
 
 }

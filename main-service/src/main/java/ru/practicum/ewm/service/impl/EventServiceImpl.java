@@ -175,6 +175,10 @@ public class EventServiceImpl implements EventService {
         validatePaging(from, size);
         validateMinTextLength(text);
 
+        if (text == null) {
+            text = ""; // Устанавливаем пустую строку вместо null иначе ошибка в spring boot 3.3.2 ...
+        }
+
         LocalDateTime now = LocalDateTime.now();
         rangeStart = getDefaultStartDateIfNull(rangeStart, now);
         rangeEnd = getDefaultEndDateIfNull(rangeEnd, now);

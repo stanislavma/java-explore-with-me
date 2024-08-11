@@ -10,7 +10,7 @@ import ru.practicum.ewm.mapper.ParticipationRequestMapper;
 import ru.practicum.ewm.model.ParticipationRequest;
 import ru.practicum.ewm.service.EventService;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import java.util.List;
 
 /**
@@ -40,7 +40,7 @@ public class EventRequestsPrivateController {
     /**
      * Обновление статуса запроса на участие в мероприятии
      */
-    @PatchMapping
+    @PatchMapping({"", "/"})
     public EventRequestStatusUpdateResult updateEventRequestsStatus(
             @PathVariable Long userId,
             @PathVariable Long eventId,

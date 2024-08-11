@@ -8,8 +8,8 @@ import lombok.NoArgsConstructor;
 import ru.practicum.ewm.enums.UpdateStateAction;
 import ru.practicum.ewm.model.Location;
 
-import javax.validation.constraints.PositiveOrZero;
-import javax.validation.constraints.Size;
+import jakarta.validation.constraints.PositiveOrZero;
+import jakarta.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 import static ru.practicum.ewm.common.Constants.DATE_TIME_FORMAT_PATTERN;

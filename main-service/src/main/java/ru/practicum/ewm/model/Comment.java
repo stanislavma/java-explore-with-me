@@ -3,7 +3,7 @@ package ru.practicum.ewm.model;
 import lombok.*;
 import ru.practicum.ewm.enums.CommentState;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity

@@ -3,8 +3,8 @@ package ru.practicum.ewm.model;
 import lombok.*;
 import ru.practicum.ewm.enums.EventState;
 
-import javax.persistence.*;
-import javax.validation.constraints.PositiveOrZero;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.PositiveOrZero;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +35,7 @@ public class Event {
     private Location location;
 
     @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
     private List<Comment> comments = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
