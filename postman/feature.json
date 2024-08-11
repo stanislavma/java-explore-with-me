@@ -1,11 +1,10 @@
 {
   "info": {
-    "_postman_id": "e71ca9a7-845d-43a6-90d9-8b238e0986b8",
-    "name": "explore-with-me-base",
-    "description": "Explore with me postman tests",
+    "_postman_id": "02c2e6ea-752a-45c3-9045-a1758f7f1e3b",
+    "name": "explore-with-me-tests",
+    "description": "Explore with me postman tests 222",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "_exporter_id": "5253721",
-    "_collection_link": "https://blue-astronaut-990245.postman.co/workspace/yandex~b25f0217-5c82-43a8-9556-d83d70607471/collection/5253721-e71ca9a7-845d-43a6-90d9-8b238e0986b8?source=collection_link"
+    "_exporter_id": "9069254"
   },
   "item": [
     {
@@ -284,7 +283,7 @@
           }
         },
         "url": {
-          "raw": "{{baseUrl}}/users/1/comments/events/1",
+          "raw": "{{baseUrl}}/users/1/comments/events/2",
           "host": [
             "{{baseUrl}}"
           ],
@@ -293,7 +292,7 @@
             "1",
             "comments",
             "events",
-            "1"
+            "2"
           ]
         }
       },
@@ -360,13 +359,13 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "{{baseUrl}}/events/1/comments",
+          "raw": "{{baseUrl}}/events/2/comments",
           "host": [
             "{{baseUrl}}"
           ],
           "path": [
             "events",
-            "1",
+            "2",
             "comments"
           ]
         }
