@@ -6,12 +6,14 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.practicum.ewm.dto.category.CategoryDto;
+import ru.practicum.ewm.dto.comment.CommentDto;
 import ru.practicum.ewm.dto.location.LocationDto;
 import ru.practicum.ewm.dto.user.UserShortDto;
 import ru.practicum.ewm.enums.EventState;
 
-import javax.validation.constraints.PositiveOrZero;
+import jakarta.validation.constraints.PositiveOrZero;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static ru.practicum.ewm.common.Constants.DATE_TIME_FORMAT_PATTERN;
 
@@ -26,6 +28,8 @@ public class EventFullDto {
     private String annotation;
     private String description;
     private CategoryDto category;
+
+    private List<CommentDto> comments;
 
     @JsonFormat(pattern = DATE_TIME_FORMAT_PATTERN)
     private LocalDateTime eventDate;

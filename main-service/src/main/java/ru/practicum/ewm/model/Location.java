@@ -3,7 +3,7 @@ package ru.practicum.ewm.model;
 import lombok.*;
 import ru.practicum.ewm.dto.location.LocationDto;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
 @Getter

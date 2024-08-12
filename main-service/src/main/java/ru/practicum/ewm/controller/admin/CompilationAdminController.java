@@ -12,7 +12,7 @@ import ru.practicum.ewm.service.CompilationService;
 import ru.practicum.ewm.service.impl.RequestService;
 import ru.practicum.ewm.stats.client.client.StatsClient;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;

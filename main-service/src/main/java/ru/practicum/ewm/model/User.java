@@ -2,8 +2,8 @@ package ru.practicum.ewm.model;
 
 import lombok.*;
 
-import javax.persistence.*;
-import javax.validation.constraints.Email;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 
 @Entity
 @Getter

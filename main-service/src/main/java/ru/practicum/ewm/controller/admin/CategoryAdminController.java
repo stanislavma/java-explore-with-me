@@ -9,7 +9,7 @@ import ru.practicum.ewm.mapper.CategoryMapper;
 import ru.practicum.ewm.model.Category;
 import ru.practicum.ewm.service.CategoryService;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import java.util.List;
 
 /**

@@ -38,9 +38,9 @@ import java.util.stream.Collectors;
 
 import static ru.practicum.ewm.common.Constants.DATE_TIME_FORMATTER;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
-@Slf4j
 public class EventServiceImpl implements EventService {
 
     private final LocationRepository locationRepository;
@@ -146,8 +146,9 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
+    @Transactional
     public Event getEventById(Long eventId) {
-        return eventRepository.findById(eventId)
+        return eventRepository.findByIdWithDetails(eventId)
                 .orElseThrow(() -> new EntityNotFoundException("Событие не найдено: " + eventId));
     }
 
@@ -155,7 +156,7 @@ public class EventServiceImpl implements EventService {
     public List<Event> getEventsByInitiator(Long userId, int from, int size) {
         User initiator = userService.getById(userId);
         PageRequest pageRequest = PageRequest.of(from / size, size);
-        return eventRepository.findByInitiator(initiator, pageRequest);
+        return eventRepository.findByInitiatorIdWithComments(initiator.getId(), pageRequest);
     }
 
     @Override
@@ -173,6 +174,10 @@ public class EventServiceImpl implements EventService {
                                        int from, int size, String ip) {
         validatePaging(from, size);
         validateMinTextLength(text);
+
+        if (text == null) {
+            text = ""; // Устанавливаем пустую строку вместо null иначе ошибка в spring boot 3.3.2 ...
+        }
 
         LocalDateTime now = LocalDateTime.now();
         rangeStart = getDefaultStartDateIfNull(rangeStart, now);

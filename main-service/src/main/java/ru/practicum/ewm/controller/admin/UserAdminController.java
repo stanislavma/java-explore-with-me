@@ -9,7 +9,7 @@ import ru.practicum.ewm.mapper.UserMapper;
 import ru.practicum.ewm.model.User;
 import ru.practicum.ewm.service.UserService;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import java.util.List;
 
 /**
